@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "actual-alpha-import"
+version = "0.1.0"
+description = "Import Alpha Bank Greece transaction CSVs into Actual Budget"
+requires-python = ">=3.12"
+dependencies = [
+    "actualpy",
+    "python-dotenv",
+    "click",
+    "pandas",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+actual-alpha-import = "actual_alpha_import.cli:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/actual_alpha_import"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

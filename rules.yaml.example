@@ -1,0 +1,164 @@
+# Categorisation rules for Alpha Bank Greece transactions.
+# Structure: each top-level key is a category group, each sub-key is a category,
+# and each list entry is a string that must appear in the imported payee name.
+# Matching is case-insensitive after Greek-lookalike normalisation (both sides
+# are passed through _normalize_payee before comparison).
+#
+# Copy this file to rules.yaml and fill in your own payee fragments.
+# Note: Alpha Bank exports use Greek Unicode lookalike characters for Latin
+# letters (e.g. Greek Α instead of Latin A). Copy fragments directly from a
+# dry-run output to ensure they match exactly.
+
+Income:
+  Salary:
+    - "YOUR EMPLOYER PAYROLL"   # payee fragment from bank statement
+  Expense Reimbursement:
+    - "YOUR EMPLOYER EXPENSES"
+
+Housing:
+  Rent:
+    - "ΕΝΟΙΚΙΟ"                 # Greek for "rent" — appears in bank transfers
+  Home Energy:
+    - "YOUR ENERGY PROVIDER"
+
+Bills:
+  Mobile / Internet:
+    - "CΟSΜΟΤΕ"                 # Cosmote (Greek telco)
+    - "YOUR ISP"
+  Electricity:
+    - "DΕΙ ΒΙLL"                # DEI (Greek power company)
+  Taxes:
+    - "ΙRΙS-ΒΕΒΑΙΩΜΕΝΕΣ ΣΤΙ"   # IRIS tax payments
+  Government Fees:
+    - "ΡΑRΑΒΟLΟ"                # e-paravolo (government fee portal)
+    - "ΔΙΑΦΟΡΕΣ ΠΛΗΡΩΜΕΣ"
+
+Transfers:
+  IRIS Payment:
+    - "ΙRΙS"                    # IRIS instant payment network
+  Wire Transfer:
+    - "ΕΝΤΟΛΗΣ"
+    - "ΕΝΤΟΛΗ"
+  Revolut:
+    - "RΕVΟLUΤ"
+  Personal Transfer:
+    - "YOUR OWN NAME"            # transfers to/from yourself
+    - "FRIEND OR FAMILY NAME"
+
+Subscriptions:
+  Netflix:
+    - "ΝΕΤFLΙΧ"
+  Spotify:
+    - "SΡΟΤΙFΥ"
+  Software:
+    - "CLΑUDΕ.ΑΙ"
+    - "GΟΟGLΕ*GΟΟGLΕ ΟΝΕ"
+    - "ΡRΟΤΟΝ ΑG"
+  Gaming:
+    - "SΤΕΑΜ ΡURCΗΑSΕ"
+    - "ΧSΟLLΑ"
+
+Food:
+  Groceries:
+    - "ΑΒ_SΗΟΡ"                 # AB Vassilopoulos
+    - "SΚLΑVΕΝΙΤΙS"
+  Restaurants:
+    - "YOUR LOCAL RESTAURANT"
+  Delivery:
+    - "ΕFΟΟD"
+
+Transport:
+  Public Transit:
+    - "ΟΑSΑ ΑΤΗΕΝS"
+  Flights:
+    - "ΑΕGΕΑΝ"
+    - "ΝΟRWΕGΙΑΝ"
+  Taxi:
+    - "UΒΕR"
+    - "ΒΟLΤ.ΕU"
+  Ferry:
+    - "FΕRRΥΗΟΡΡΕR"
+  Tolls:
+    - "ΟLΥΜΡΙΑ ΟDΟS"
+    - "ΑFΤΟΚΙΝΙΤΟDRΟΜΟS"
+    - "ΝΕΑ ΟDΟS"
+  Fuel:
+    - "SΗΕLL"
+  Parking:
+    - "YOUR PARKING PROVIDER"
+
+Cash:
+  Cash Withdrawal:
+    - "ΑΝΑΛΗΨΗ ΑΠΟ ΑΤΜ"        # Greek for "ATM withdrawal"
+
+Shopping:
+  Online:
+    - "ΑΜΑΖΟΝ"
+    - "Β2C/Β2Β"                 # courier import fees
+  Sports:
+    - "DΕCΑΤΗLΟΝ"
+  Home:
+    - "ΙΚΕΑ"
+  Home Improvement:
+    - "ΡRΑΚΤΙΚΕR"               # Praktiker (hardware store)
+  Electronics:
+    - "YOUR ELECTRONICS STORE"
+  Clothing:
+    - "YOUR CLOTHING STORE"
+  Shipping:
+    - "DΗL ΕΧΡRΕSS ΗΕLLΑS"
+
+Health:
+  Pharmacy:
+    - "YOUR PHARMACY"
+  Dentist:
+    - "YOUR DENTIST"
+
+Personal Care:
+  Barber:
+    - "YOUR BARBER"
+
+Investments:
+  Investments:
+    - "ΤRΑDΙΝG 212"
+
+Travel:
+  Accommodation:
+    - "ΑΙRΒΝΒ"
+    - "ΒΚG*ΒΟΟΚΙΝG"
+    - "ΒΚG*ΗΟΤΕL"
+
+Entertainment:
+  Cinema:
+    - "YOUR CINEMA"
+  Events:
+    - "ΤΙCΚΕΤΜΑSΤΕR"
+  Museum:
+    - "YOUR MUSEUM"
+
+# ---------------------------------------------------------------------------
+# alpha_bank_categories maps the Κατηγορία field from credit card exports
+# to Actual Budget categories. These are the standard Alpha Bank categories.
+# ---------------------------------------------------------------------------
+alpha_bank_categories:
+  "Εστίαση, καταλύματα, μεταφορές":
+    group: Food
+    category: Restaurants
+  "Σουπερμάρκετ και διατροφή":
+    group: Food
+    category: Groceries
+  "Ενέργεια, ύδρευση, τηλεπικοινωνίες":
+    group: Bills
+    category: Electricity
+  "Ένδυση και υπόδηση":
+    group: Shopping
+    category: Clothing
+  "Καύσιμα":
+    group: Transport
+    category: Fuel
+  "Ηλεκτρικά και ηλεκτρονικά είδη":
+    group: Shopping
+    category: Electronics
+  "Άλλα έξοδα":
+    group: Shopping
+    category: Other
